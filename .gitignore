@@ -1,0 +1,18 @@
+# Environments
+.venv/
+__pycache__/
+*.pyc
+
+# Secrets
+.env
+
+# Runtime data (never commit user uploads or the vector database)
+uploaded_pdfs/
+chroma_db/
+
+# Evaluation results (generated reports, not source code)
+app/evaluation/results/
+
+# Misc
+debug_check.py
+debug_groq.py

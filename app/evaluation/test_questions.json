@@ -1,0 +1,50 @@
+[
+  {
+    "question": "What is Amazon Bedrock?",
+    "document": "aws-overview.pdf",
+    "expected_pages": [82],
+    "expected_keywords": ["foundation models", "API"]
+  },
+  {
+    "question": "What is Amazon S3?",
+    "document": "aws-overview.pdf",
+    "expected_pages": [149],
+    "expected_keywords": ["storage", "object"]
+  },
+  {
+    "question": "What is on page 99?",
+    "document": "aws-overview.pdf",
+    "expected_pages": [99],
+    "expected_keywords": ["Systems Manager"]
+  },
+  {
+    "question": "What is Amazon EC2?",
+    "document": "aws-overview.pdf",
+    "expected_pages": [],
+    "expected_keywords": ["compute", "instances"]
+  },
+  {
+    "question": "What is AWS Lambda?",
+    "document": "aws-overview.pdf",
+    "expected_pages": [],
+    "expected_keywords": ["serverless", "function"]
+  },
+  {
+    "question": "Does this document mention pricing for a mobile game subscription service?",
+    "document": "aws-overview.pdf",
+    "expected_pages": [],
+    "expected_keywords": []
+  },
+  {
+    "question": "Who is the CEO of Tesla?",
+    "document": "aws-overview.pdf",
+    "expected_pages": [],
+    "expected_keywords": []
+  },
+  {
+    "question": "What is the capital of France?",
+    "document": "aws-overview.pdf",
+    "expected_pages": [],
+    "expected_keywords": ["Paris"]
+  }
+]

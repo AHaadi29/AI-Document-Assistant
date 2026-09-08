@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ app_name }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+</head>
+<body>
+    <div class="bg-glow bg-glow--1" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow--2" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow--3" aria-hidden="true"></div>
+
+    <header class="navbar">
+        <a href="/" class="navbar__brand">
+            <span class="navbar__logo" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M14 3v5h5" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M9 13h6M9 17h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </span>
+            <span class="navbar__title">{{ app_name }}</span>
+        </a>
+
+        <nav class="navbar__actions" aria-label="Social links">
+            <a href="https://github.com/AHaadi29" class="btn btn--ghost btn--icon" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12Z"/>
+                </svg>
+                <span class="btn__label">GitHub</span>
+            </a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div id="landing-view">
+            <section class="hero">
+                <p class="hero__eyebrow">Retrieval-Augmented Generation</p>
+
+                <h1 class="hero__title">
+                    Chat with your documents using
+                    <span class="gradient-text">{{ app_name }}</span>
+                </h1>
+
+                <p class="hero__subtitle">{{ tagline }}</p>
+
+                <p class="hero__description">
+                    Upload any document and ask questions in natural language. Get accurate,
+                    context-aware answers powered by semantic search and Groq built for
+                    students, researchers, and professionals.
+                </p>
+
+                <div class="upload-section">
+                    <button type="button" class="btn btn--primary btn--upload" id="upload-btn">
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M12 16V4m0 0 7 7m-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        Upload Document 
+                    </button>
+
+                    <div class="dropzone glass-card" id="dropzone" role="button" tabindex="0" aria-label="Drag and drop a PDF or click to browse">
+                        <input type="file" id="file-input" class="dropzone__input" accept=".pdf,.docx,.txt" tabindex="-1" aria-hidden="true">
+
+                        <div class="dropzone__icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M12 15V3m0 12 4-4m-4 4-4-4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M20 16.5v1.75A2.75 2.75 0 0 1 17.25 21H6.75A2.75 2.75 0 0 1 4 18.25V16.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+
+                        <p class="dropzone__title">Drag and Drop a Document</p>
+                        <p class="dropzone__hint">or click to browse</p>
+                        <p class="dropzone__formats">Supports .pdf, .docx, .txt files</p>
+                    </div>
+
+                    <div class="upload-status-wrap">
+                        <div class="spinner" id="upload-spinner" hidden></div>
+                        <p class="upload-status" id="upload-status" aria-live="polite"></p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features" aria-label="Key features">
+                <article class="feature-card glass-card">
+                    <div class="feature-card__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M8 11h8M8 15h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h2 class="feature-card__title">Smart Document Parsing</h2>
+                    <p class="feature-card__text">Extract and chunk text from Documents like PDF, DOCX, TXT for precise semantic retrieval.</p>
+                </article>
+
+                <article class="feature-card glass-card">
+                    <div class="feature-card__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h2 class="feature-card__title">Vector Search</h2>
+                    <p class="feature-card__text">Find the most relevant passages using HuggingFace embeddings and ChromaDB.</p>
+                </article>
+
+                <article class="feature-card glass-card">
+                    <div class="feature-card__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M12 3c4.5 2.2 7.5 5.5 7.5 9a7.5 7.5 0 1 1-15 0c0-3.5 3-6.8 7.5-9Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M9.5 13.5 11 15l3.5-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h2 class="feature-card__title">AI-Powered Answers</h2>
+                    <p class="feature-card__text">Get grounded responses from Groq using only your uploaded document context.</p>
+                </article>
+            </section>
+        </div>
+
+        <section id="chat-view" class="chat-view" hidden>
+            <div class="chat-header">
+                <div class="chat-header__doc">
+                    <span class="chat-header__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M14 3v5h5" stroke="currentColor" stroke-width="1.5"/>
+                        </svg>
+                    </span>
+                    <select id="document-select" class="document-select" aria-label="Select document"></select>
+                </div>
+                <button type="button" class="btn btn--ghost" id="new-upload-btn">Upload another Document</button>
+            </div>
+
+            <div class="chat-messages glass-card" id="chat-messages"></div>
+
+            <form class="chat-input-bar" id="chat-form">
+                <input
+                    type="text"
+                    id="chat-input"
+                    class="chat-input"
+                    placeholder="Ask a question about this document..."
+                    autocomplete="off"
+                    disabled
+                >
+                <button type="submit" class="btn btn--primary" id="chat-send-btn" disabled>Send</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer__inner">
+            <div class="footer__brand">
+                <span class="footer__logo" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M14 3v5h5" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                </span>
+                <span>{{ app_name }}</span>
+            </div>
+
+            <p class="footer__tagline">Built with FastAPI &middot; LangChain &middot; ChromaDB &middot; Groq</p>
+
+            <div class="footer__links">
+                <a href="https://github.com/AHaadi29" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+
+            <p class="footer__copy">&copy; 2026 {{ app_name }}. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', path='js/main.js') }}?v=2"></script>
+</body>
+</html>
